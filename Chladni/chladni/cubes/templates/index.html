@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chladni Pattern Visualization</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+        #controls {
+            display: flex;
+            justify-content: space-around;
+            padding: 5px;
+            background-color: #333;
+            color: #fff;
+            flex-wrap: wrap;
+            font-size: 0.8rem;
+        }
+        #controls div {
+            margin-bottom: 5px;
+        }
+        #controls input {
+            width: 40px;
+            padding: 3px;
+            font-size: 0.8rem;
+        }
+        #sliders {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            width: 400px;
+            height: calc(100vh);
+        }
+        #sliders label {
+            margin-bottom: 10px;
+            font-size: 0.8rem;
+        }
+        #visualization {
+            flex: 1;
+            position: relative;
+        }
+        #boundaryButtons {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        #boundaryButtons button {
+            flex: 1;
+            padding: 5px;
+            margin: 0 5px;
+            background-color: #444;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        #boundaryButtons button.active {
+            background-color: #888;
+        }
+    </style>
+    {% load static %}
+</head>
+<body>
+    <div id="controls">
+        <div>
+            <label for="A">A:</label>
+            <input type="number" id="A" value="0.5" step="0.1">
+        </div>
+        <div>
+            <label for="B">B:</label>
+            <input type="number" id="B" value="2" step="0.1">
+        </div>
+        <div>
+            <label for="C">C:</label>
+            <input type="number" id="C" value="2" step="0.1">
+        </div>
+        <div>
+            <label for="D">D:</label>
+            <input type="number" id="D" value="1.5" step="0.1">
+        </div>
+        <div>
+            <label for="E">E:</label>
+            <input type="number" id="E" value="1.5" step="0.1">
+        </div>
+        <div>
+            <label for="F">F:</label>
+            <input type="number" id="F" value="0.5" step="0.1">
+        </div>
+        <div>
+            <label for="u">u:</label>
+            <input type="number" id="u" value="1" step="1">
+        </div>
+        <div>
+            <label for="v">v:</label>
+            <input type="number" id="v" value="1" step="1">
+        </div>
+        <div>
+            <label for="w">w:</label>
+            <input type="number" id="w" value="2" step="1">
+        </div>
+        <div>
+            <label for="min_x">min_x:</label>
+            <input type="number" id="min_x" value="-1" step="0.1">
+        </div>
+        <div>
+            <label for="min_y">min_y:</label>
+            <input type="number" id="min_y" value="-1" step="0.1">
+        </div>
+        <div>
+            <label for="min_z">min_z:</label>
+            <input type="number" id="min_z" value="-1" step="0.1">
+        </div>
+        <div>
+            <label for="max_x">max_x:</label>
+            <input type="number" id="max_x" value="1" step="0.1">
+        </div>
+        <div>
+            <label for="max_y">max_y:</label>
+            <input type="number" id="max_y" value="1" step="0.1">
+        </div>
+        <div>
+            <label for="max_z">max_z:</label>
+            <input type="number" id="max_z" value="1" step="0.1">
+        </div>
+        <button id="updatePattern">Update Pattern</button>
+    </div>
+
+    <div style="display: flex; flex: 1;">
+        <div id="sliders">
+            <div id="boundaryButtons">
+                <button id="dirichlet" class="active">Dirichlet</button>
+                <button id="neumann">Neumann</button>
+            </div>
+
+            <label for="A_slider">A:</label>
+            <input type="range" id="A_slider" min="0" max="5" step="0.1" value="0.5">
+            
+            <label for="B_slider">B:</label>
+            <input type="range" id="B_slider" min="0" max="5" step="0.1" value="2">
+            
+            <label for="C_slider">C:</label>
+            <input type="range" id="C_slider" min="0" max="5" step="0.1" value="2">
+            
+            <label for="D_slider">D:</label>
+            <input type="range" id="D_slider" min="0" max="5" step="0.1" value="1.5">
+            
+            <label for="E_slider">E:</label>
+            <input type="range" id="E_slider" min="0" max="5" step="0.1" value="1.5">
+            
+            <label for="F_slider">F:</label>
+            <input type="range" id="F_slider" min="0" max="5" step="0.1" value="0.5">
+            
+            <label for="u_slider">u:</label>
+            <input type="range" id="u_slider" min="1" max="10" step="1" value="1">
+            
+            <label for="v_slider">v:</label>
+            <input type="range" id="v_slider" min="1" max="10" step="1" value="1">
+            
+            <label for="w_slider">w:</label>
+            <input type="range" id="w_slider" min="1" max="10" step="1" value="2">
+            
+            <label for="min_x_slider">min_x:</label>
+            <input type="range" id="min_x_slider" min="-5" max="0" step="0.1" value="-1">
+            
+            <label for="min_y_slider">min_y:</label>
+            <input type="range" id="min_y_slider" min="-5" max="0" step="0.1" value="-1">
+            
+            <label for="min_z_slider">min_z:</label>
+            <input type="range" id="min_z_slider" min="-5" max="0" step="0.1" value="-1">
+            
+            <label for="max_x_slider">max_x:</label>
+            <input type="range" id="max_x_slider" min="0" max="5" step="0.1" value="1">
+            
+            <label for="max_y_slider">max_y:</label>
+            <input type="range" id="max_y_slider" min="0" max="5" step="0.1" value="1">
+            
+            <label for="max_z_slider">max_z:</label>
+            <input type="range" id="max_z_slider" min="0" max="5" step="0.1" value="1">
+        </div>
+
+        <div id="visualization">
+            <!-- The Three.js scene will be rendered here -->
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="{% static 'main.js' %}"></script>
+</body>
+</html>

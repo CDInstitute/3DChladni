@@ -1,0 +1,104 @@
+# Python
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+*.env
+*.venv
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+media/
+staticfiles/
+.static_storage/
+.media/
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Three.js and Node.js (if you're using npm)
+node_modules/
+npm-debug.log
+yarn-error.log
+.parcel-cache/
+dist/
+.cache/
+.next/
+.nuxt/
+.vuepress/dist/
+.serverless/
+
+# Byte-compiled / optimized / DLL files
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Django Stuff:
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media/
+static/
+
+# Frontend assets
+*.map
+.parcel-cache/
+.next/
+.nuxt/
+.vuepress/dist/
+dist/
+
+# Editor directories and files
+.idea/
+.vscode/
+.vscode/*
+*.swp
+.vscode/
+.env/
+
