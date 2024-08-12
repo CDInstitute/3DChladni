@@ -4,6 +4,18 @@ In Skrodzki et al. 2016 [1], the authors described the generation of 3D Chladni 
 
 **Prerequisites**:  No strict prerequisites, knowledge of 3D web development / JavaScript / HTML5 is a bonus.
 
+## How to setup
+* cd ./chladni
+* (node.js installation) (brew install node (for Mac))
+* npm install (installs dependencies of node.js)
+* (conda installation)
+* conda env create -f environment.yml
+* conda activate chladni
+  
+## How to run
+* cd ./chladni
+* conda activate chladni    
+* python manage.py runserver
 
 ## Reference Code and Papers: 
 
