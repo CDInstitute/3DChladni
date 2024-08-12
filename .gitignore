@@ -85,6 +85,7 @@ db.sqlite3
 db.sqlite3-journal
 media/
 static/
+!static/main.js
 
 # Frontend assets
 *.map
