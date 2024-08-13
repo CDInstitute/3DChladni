@@ -16,6 +16,7 @@ In Skrodzki et al. 2016 [1], the authors described the generation of 3D Chladni 
 * cd ./chladni
 * conda activate chladni    
 * python manage.py runserver
+* open http://127.0.0.1:8000/ in your browser
 
 ## Reference Code and Papers: 
 
