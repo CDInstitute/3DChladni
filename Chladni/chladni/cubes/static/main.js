@@ -313,6 +313,15 @@ document.addEventListener('DOMContentLoaded', function () {
                 geometry.setIndex(new THREE.BufferAttribute(indices, 1));
                 geometry.computeVertexNormals();
     
+                // Update backup geometry and material for single-sided view
+                backupSingleGeometry = geometry.clone();
+                backupSingleMaterial = new THREE.MeshStandardMaterial({
+                    color: document.getElementById('shapeColor').value,
+                    metalness: 0.5,
+                    roughness: 0.5,
+                    side: THREE.DoubleSide
+                });
+    
                 const frontMaterial = new THREE.MeshStandardMaterial({
                     color: document.getElementById('shapeColor').value,
                     metalness: 0.5,
@@ -335,13 +344,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     scene.add(frontMesh);
                     scene.add(backMesh);
                 } else {
-                    currentMesh = new THREE.Mesh(geometry, new THREE.MeshStandardMaterial({
-                        color: document.getElementById('shapeColor').value,
-                        metalness: 0.5,
-                        roughness: 0.5,
-                        side: THREE.DoubleSide
-                    }));
-    
+                    currentMesh = new THREE.Mesh(geometry, backupSingleMaterial);
                     scene.add(currentMesh);
                 }
     
@@ -361,6 +364,7 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .catch(error => console.error('Error fetching or processing Chladni pattern data:', error));
     }
+    
 
     function exportPatternData() {
         if (!currentPatternData || !currentMesh) {
