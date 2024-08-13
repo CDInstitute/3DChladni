@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log('Camera created with initial position', camera.position);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setClearColor(0x202020);
+    renderer.setClearColor(0);
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.getElementById('visualization').appendChild(renderer.domElement);
     console.log('Renderer created and added to the DOM');
@@ -60,15 +60,39 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
                 geometry.setIndex(new THREE.BufferAttribute(indices, 1));
+
                 geometry.computeVertexNormals();
 
-                const material = new THREE.MeshStandardMaterial({
-                    color: 0x88ccee,
-                    metalness: 0.5,
-                    roughness: 0.5,
+
+                
+                const material = new THREE.ShaderMaterial({
+                    vertexShader: `
+                        varying vec3 vNormal;
+                        void main() {
+                            vNormal = normalize( normalMatrix * normal );
+                            gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+                        }
+                    `,
+                    fragmentShader: `
+                        varying vec3 vNormal;
+                        uniform vec3 colorFront;
+                        uniform vec3 colorBack;
+                        void main() {
+                            if (dot(vNormal, vec3(0.0, 0.0, 1.0)) > 0.0) {
+                                gl_FragColor = vec4(colorFront, 1.0);
+                            } else {
+                                gl_FragColor = vec4(colorBack, 1.0);
+                            }
+                        }
+                    `,
+                    uniforms: {
+                        colorFront: { value: new THREE.Color(0x88ccee) }, // Color for the front side
+                        colorBack: { value: new THREE.Color(0xee88cc) }   // Color for the back side
+                    },
                     side: THREE.DoubleSide
                 });
-
+                
+                
                 currentMesh = new THREE.Mesh(geometry, material);
                 scene.add(currentMesh);
                 console.log('Chladni pattern mesh added to the scene');
