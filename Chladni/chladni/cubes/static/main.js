@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log('Camera created with initial position', camera.position);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setClearColor(0);
+    renderer.setClearColor(255);
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.getElementById('visualization').appendChild(renderer.domElement);
     console.log('Renderer created and added to the DOM');
@@ -63,8 +63,29 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 geometry.computeVertexNormals();
 
+                const textureLoader = new THREE.TextureLoader();
+                const texture = textureLoader.load('/static/textures/concrete_seamless.jpg');
+                texture.wrapS = THREE.RepeatWrapping; // Horizontal wrapping
+                texture.wrapT = THREE.RepeatWrapping; // Vertical wrapping
+                texture.repeat.set(7.5, 7.5); // Scale
+                //texture.offset.set(2.4, 2.3); // Offset
+                // Create a material with the loaded texture
+                /*
+                const checkerBoardMaterial = new THREE.MeshStandardMaterial({
+                    map: texture,
+                    //color: 0x00ff00,
+                    //metalness: 1.0,
+                    roughness: 0.5,
+                    side: THREE.DoubleSide
 
-                
+                });*/
+                const checkerBoardMaterial = 
+                new THREE.MeshPhongMaterial({
+                    map: texture,
+                    side: THREE.DoubleSide
+                 })
+
+
                 const material = new THREE.ShaderMaterial({
                     vertexShader: `
                         varying vec3 vNormal;
@@ -77,12 +98,17 @@ document.addEventListener('DOMContentLoaded', function () {
                         varying vec3 vNormal;
                         uniform vec3 colorFront;
                         uniform vec3 colorBack;
-                        void main() {
-                            if (dot(vNormal, vec3(0.0, 0.0, 1.0)) > 0.0) {
+                        varying vec3 vUv;
+
+                        void main() 
+                        {
+                            if (dot(vNormal, vec3(0.0, 0.0, 1.0)) > 0.0) 
+                            {
                                 gl_FragColor = vec4(colorFront, 1.0);
-                            } else {
+                            } 
+                                else {
                                 gl_FragColor = vec4(colorBack, 1.0);
-                            }
+                            }                            
                         }
                     `,
                     uniforms: {
@@ -92,8 +118,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     side: THREE.DoubleSide
                 });
                 
+
                 
-                currentMesh = new THREE.Mesh(geometry, material);
+
+
+
+                currentMesh = new THREE.Mesh(geometry, checkerBoardMaterial);
                 scene.add(currentMesh);
                 console.log('Chladni pattern mesh added to the scene');
 
@@ -174,11 +204,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const light = new THREE.DirectionalLight(0xffffff, 2);
     light.position.set(50, 50, 50);
     scene.add(light);
+    scene.add(light);
     console.log('Directional light added at position', light.position);
 
-    const ambientLight = new THREE.AmbientLight(0x404040);
+    // Ambient Light
+    const ambientLight = new THREE.AmbientLight(0x404040); // Soft white light
     scene.add(ambientLight);
     console.log('Ambient light added to the scene');
+    
 
     function animate() {
         requestAnimationFrame(animate);
