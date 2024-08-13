@@ -37,7 +37,7 @@
             padding: 10px;
             background-color: #333;
             color: #fff;
-            width: 400px;
+            width: 20%; 
             height: calc(100vh);
         }
         #sliders label {
@@ -64,6 +64,82 @@
         }
         #boundaryButtons button.active {
             background-color: #888;
+        }
+        #exportButton {
+            position: absolute;
+            bottom: 5%;
+            right: 2%;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 0.8rem;
+            z-index: 1000;
+        }
+        #triggerImportButton {
+            position: absolute;
+            bottom: 10%;
+            right: 2%;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 0.8rem;
+            z-index: 1000;
+        }
+        #lightControls input[type="range"] {
+            width: 80px; 
+            margin: 5px 0; 
+        }
+        #backgroundColorSelector {
+            position: absolute;
+            top: 5%;
+            right: 2%;
+            z-index: 1000;
+        }
+        #colorSelector {
+            position: absolute;
+            top: 10%;
+            right: 2%;
+            z-index: 1000;
+        }
+        #materialSelector {
+            position: absolute;
+            top: 15%;
+            right: 2%;
+            z-index: 1000;
+        }
+        #textureSelector {
+            position: absolute;
+            top: 20%;
+            right: 2%;
+            z-index: 1000;
+        }
+        #materialOptions {
+            position: absolute;
+            top: 25%;
+            right: 2%;
+            z-index: 1000;
+        }
+        #backColorPicker {
+            position: absolute;
+            top: 30%;
+            right: 2%;
+            z-index: 1000;
+        }
+        #lightingControls {
+            position: absolute;
+            top: 35%;
+            right: 2%;
+            z-index: 1000;
+        }
+        #lightControls {
+            position: absolute;
+            top: 40%;
+            right: 2%;
+            z-index: 1000;
         }
     </style>
     {% load static %}
@@ -131,6 +207,74 @@
             <input type="number" id="max_z" value="1" step="0.1">
         </div>
         <button id="updatePattern">Update Pattern</button>
+
+        <div id="backgroundColorSelector" style="position: absolute; top: 50px; right: 10px; z-index: 1000;">
+            <label for="backgroundColor">Background Color:</label>
+            <select id="backgroundColor">
+                <option value="0x202020">Default</option>
+                <option value="0x000000">Black</option>
+                <option value="0xFFFFFF">White</option>
+            </select>
+        </div>
+
+        <div id="colorSelector" style="position: absolute; top: 80px; right: 10px; z-index: 1000;">
+            <label for="shapeColor">Shape Color:</label>
+            <input type="color" id="shapeColor" value="#88ccee">
+        </div>
+        
+        <div id="materialSelector" style="position: absolute; top: 120px; right: 10px; z-index: 1000;">
+            <label for="shapeMaterial">Material:</label>
+            <select id="shapeMaterial">
+                <option value="MeshStandardMaterial">Standard</option>
+                <option value="MeshPhysicalMaterial">Physical</option>
+                <option value="MeshNormalMaterial">Normal</option>
+                <option value="MeshToonMaterial">Toon</option>
+            </select>
+        </div>
+
+        <div id="textureSelector" style="position: absolute; top: 155px; right: 10px; z-index: 1000;">
+            <label for="textureSelect">Choose a Texture:</label>
+            <select id="textureSelect">
+                <option value="">None</option>
+                <option value="texture1.jpeg">Texture 1</option>
+                <option value="texture2.jpeg">Texture 2</option>
+                <option value="texture3.jpg">Texture 3</option>
+            </select>
+        </div>
+
+        <div id="materialOptions" style="position: absolute; top: 190px; right: 10px; z-index: 1000;">
+            <label for="renderMode">Render Mode:</label>
+            <select id="renderMode">
+                <option value="single">Single-Sided</option>
+                <option value="double">Front & Back Colors</option>
+            </select>
+        
+            <!-- color picker for the back side color in front back view -->
+            <div id="backColorPicker" style="display:none; position: absolute; top: 200px; right: 10px; z-index: 1000;">
+                <label for="backShapeColor">Back Color:</label>
+                <input type="color" id="backShapeColor" value="#ff0000">
+            </div>
+        </div>
+        
+        <div id="lightingControls" style="position: absolute; top: 225px; right: 10px; z-index: 1000;">
+            <label for="lightingSelect">Lighting:</label>
+            <select id="lightingSelect">
+                <option value="option1">Option 1: Directional + Ambient + Hemisphere</option>
+                <option value="option2">Option 2: Directional + Ambient</option>
+                <option value="option3">Option 3: Point Light</option>
+            </select>
+        </div>
+        
+        <div id="lightControls" style="position: absolute; top: 255px; right: 10px; z-index: 1000;">
+            <label for="ambientIntensity">Ambient Light Intensity:</label>
+            <input type="range" id="ambientIntensity" min="-3" max="3" step="0.1" value="0.5">
+            <br>
+            <label for="directionalIntensity">Directional Light Intensity:</label>
+            <input type="range" id="directionalIntensity" min="-1" max="3" step="0.1" value="0.5">
+            <br>
+            <label for="hemisphereIntensity">Hemisphere Light Intensity:</label>
+            <input type="range" id="hemisphereIntensity" min="-1" max="3" step="0.1" value="1">
+        </div>
     </div>
 
     <div style="display: flex; flex: 1;">
@@ -190,6 +334,13 @@
             <!-- The Three.js scene will be rendered here -->
         </div>
     </div>
+
+    <!-- file input for import -->
+    <input type="file" id="importButton" accept=".json">
+    <!-- button to trigger the file input -->
+    <button id="triggerImportButton">Import</button>
+    <!-- export button -->
+    <button id="exportButton">Export</button>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
