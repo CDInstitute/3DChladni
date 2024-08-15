@@ -24,3 +24,5 @@ In Skrodzki et al. 2016 [1], the authors described the generation of 3D Chladni 
 
 - [1] [Chladni Figures Revisited: A Peek Into The Third Dimension, Martin Skrodzki, Ulrich Reitebuch, and Konrad Polthier](https://archive.bridgesmathart.org/2016/bridges2016-481.html)
 - [2] [Marching Cubes ThreeJS](https://github.com/timoxley/threejs/blob/master/examples/webgl_marching_cubes.html)
+- [3] [Chladni Figures: A Mathematical
+Exploration of Visual Music](https://www.maturitaetsarbeiten.ch/cms/images/2022_2/Quistad_Evan/Evan_Quistad_Maturarbeit.pdf)
