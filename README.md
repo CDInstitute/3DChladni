@@ -1,3 +1,7 @@
+# Site
+https://chladni.onrender.com/  
+Suggestion: Run the software locally for a smoother usage.
+
 # Experimental Suite for Rendering 3D Chladni Patterns. 
 
 In Skrodzki et al. 2016 [1], the authors described the generation of 3D Chladni patterns. These are visually striking and find rich applications, e.g., in architecture or instrument design. While the paper shows several renderings, no open-source implementation is available. The project aims to create a web application that allows users to render and export their Chladni patterns. This will involve, e.g., handling implicit surface descriptions and the marching cubes algorithm. Ideally, the tool will enable researchers to investigate the relationship between Chladnis figures and eigenfunctions and help in answering the question of whether there are two different 3D shapes with the same Chladni figures (along the lines of the “Hear the shape of a drum” paper for 2D shapes).
