@@ -1,3 +1,6 @@
+![image](https://github.com/user-attachments/assets/1da72ebe-d911-43ec-8d59-8f181e727f83)
+
+
 # Website
 https://chladni.onrender.com/  
 
