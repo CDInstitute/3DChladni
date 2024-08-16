@@ -58,3 +58,6 @@ To change boundary condition, change the value of type to either 0.0 for Dirichl
 - [3] [Chladni Figures: A Mathematical
 Exploration of Visual Music](https://www.maturitaetsarbeiten.ch/cms/images/2022_2/Quistad_Evan/Evan_Quistad_Maturarbeit.pdf)
 - [4] [Marching Cubes on Shader Toy](https://www.shadertoy.com/view/ftXGDj)
+
+## Gratitude
+This project was made during the 6th week of the MIT SGI program in 2024 by SGI Fellows Nicolas Pigadas, Sachin Arvind Kishan and Bethlehem Tassew under the mentorship of Martin Skrodzki and teaching assistance of Alberto Tono. We are thankful to our mentors and the program for this opportunity. 
