@@ -1,6 +1,10 @@
-# Site
+# Website
 https://chladni.onrender.com/  
-Suggestion: Run the software locally for a smoother usage.
+
+How to use:
+Change the values on the sliders, press "Update Pattern". Wait a few seconds and a new pattern will be rendered. 
+
+Suggestion: Run the software locally for a smoother and faster usage.
 
 # Experimental Suite for Rendering 3D Chladni Patterns. 
 
